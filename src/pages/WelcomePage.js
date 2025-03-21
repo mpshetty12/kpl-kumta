@@ -35,7 +35,7 @@ const WelcomePage = () => {
           <p className="leader-title">ಫ್ರೆಂಡ್ಸ್ ಯೂತ್ ಕ್ಲಬ್ ಇವರ ಆಶ್ರಯದಲ್ಲಿ</p>
           <p className="leader-title">ದಿನಾಂಕ : ಎಪ್ರಿಲ್ 14, 15, 16 ಮತ್ತು 17  2025</p>
           <p className="leader-title1">ಸ್ಥಳ: ಕುಮಟಾ</p>
-          <p>ಪ್ರಥಮ ವರ್ಷದ ಲೀಗ್ ಮಾದರಿಯ ಟೆನ್ನಿಸ್ ಬಾಲ್ ಕ್ರಿಕೆಟ್ ಪಂದ್ಯಾವಳಿ </p>
+          <p className="info-title">ಪ್ರಥಮ ವರ್ಷದ ಲೀಗ್ ಮಾದರಿಯ ಟೆನ್ನಿಸ್ ಬಾಲ್ ಕ್ರಿಕೆಟ್ ಪಂದ್ಯಾವಳಿ </p>
         </div>
         {/* <div className="leader">
           <img src="./surendra.jpeg" alt="Vice President" className="leader-image" />
@@ -52,7 +52,7 @@ const WelcomePage = () => {
       {/* {error && <p className="error-message">{error}</p>} */}
 
       {/* Button container */}
-      <p>ಕುಮಟಾ ಹಾಗೂ ಹೊನ್ನಾವರ ಕಾಲೇಜು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಮಾತ್ರ ಅವಕಾಶ, ಆ ಆಟಗಾರರು ಮಾತ್ರ ನೋಂದಣಿಯಾಗಬೇಕು (ಕಾಲೇಜು ಗುರುತಿನ ಚೀಟಿ ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ) </p>
+      <p  className="info-title">ಕುಮಟಾ ಹಾಗೂ ಹೊನ್ನಾವರ ಕಾಲೇಜು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಮಾತ್ರ ಅವಕಾಶ, ಆ ಆಟಗಾರರು ಮಾತ್ರ ನೋಂದಣಿಯಾಗಬೇಕು (ಕಾಲೇಜು ಗುರುತಿನ ಚೀಟಿ ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ) </p>
       <div className="button-container">
           <>
             <button onClick={() => navigate('/form')}>ಆಟಗಾರರ ನೋಂದಣಿ</button>

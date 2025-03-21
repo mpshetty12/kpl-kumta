@@ -62,6 +62,12 @@ p {
     margin-top: 10px;
 }
 
+.info-title {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #fff;
+}
+
 .leader-title1 {
     font-size: 20px;
     margin-top: 5px;
