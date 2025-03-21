@@ -26,16 +26,15 @@ const WelcomePage = () => {
   return (
     <div className='welcome-container'>
       {/* Logo */}
-      {/* <img src="./kpl2025.png" alt="KPL 2025" className="logo" /> */}
+      <img src="./jv.jpeg" alt="KPL 2025" className="logo" />
 
       {/* President and Vice President images */}
       <div className="leaders-container">
         <div className="leader">
-          <img src="./jv.jpeg" alt="President" className="leader-image" />
+          {/* <img src="./jv.jpeg" alt="President" className="leader-image" /> */}
           <p className="leader-title">ಫ್ರೆಂಡ್ಸ್ ಯೂತ್ ಕ್ಲಬ್ ಇವರ ಆಶ್ರಯದಲ್ಲಿ</p>
           <p className="leader-title">ದಿನಾಂಕ : ಎಪ್ರಿಲ್ 14, 15, 16 ಮತ್ತು 17  2025</p>
           <p className="leader-title1">ಸ್ಥಳ: ಕುಮಟಾ</p>
-          <p className="info-title">ಪ್ರಥಮ ವರ್ಷದ ಲೀಗ್ ಮಾದರಿಯ ಟೆನ್ನಿಸ್ ಬಾಲ್ ಕ್ರಿಕೆಟ್ ಪಂದ್ಯಾವಳಿ </p>
         </div>
         {/* <div className="leader">
           <img src="./surendra.jpeg" alt="Vice President" className="leader-image" />
@@ -65,7 +64,8 @@ const WelcomePage = () => {
       </div>
 
       <p className="leader-title">ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಸಂಪರ್ಕಿಸಿ 👇</p>
-      <p className="leader-title">8867141341,8867223314,7022120631,7676878527</p>
+      <p className="leader-title">8867141341,8867223314</p>
+      <p className="leader-title">7022120631,7676878527</p>
 
       {/* Footer */}
       <footer className="footer" id="footerright">

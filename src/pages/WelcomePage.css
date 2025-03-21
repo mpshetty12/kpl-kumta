@@ -22,7 +22,7 @@ p {
 
 /* Logo Styling */
 .logo {
-    width: 150px;
+    width:200px;
     margin-bottom: 20px;
     transition: transform 0.3s ease;
 }
