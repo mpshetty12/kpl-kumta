@@ -1,0 +1,83 @@
+.admin-container {
+    position: relative;
+    text-align: center;
+}
+
+.timer-container {
+    margin: 20px auto;
+}
+
+.timer-circle {
+    font-size: 48px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border: 5px solid #000;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.timer-circle.blinking-red {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        background-color: red;
+    }
+}
+
+.bid-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    font-size: 24px;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.winner-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1000;
+}
+
+.winner-screen h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.winner-screen h2 {
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+
+.player-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.player-image {
+    width: 150px; /* Adjust the size to your preference */
+    height: 150px; /* Match the width for a perfect circle */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image is cropped properly */
+    border: 3px solid #000; /* Optional: Adds a border for emphasis */
+    margin: auto;
+}

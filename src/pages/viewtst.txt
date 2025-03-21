@@ -1,0 +1,610 @@
+import React, { useState, useEffect } from 'react';
+import { db } from './firebase'; // Import Firestore
+import { collection, getDocs, orderBy, query, updateDoc, doc } from 'firebase/firestore'; // Firestore functions
+import './ViewPage.css';
+import { FaWhatsapp } from 'react-icons/fa'; // Import WhatsApp icon from FontAwesome or similar
+
+const ViewPage = () => {
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [playerCount, setPlayerCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [playerTypeFilter, setPlayerTypeFilter] = useState('all');
+
+  const paymentPassword = 'pay_2024_password'; // Password to mark payment as "paid"
+
+  // Fetch users from Firestore
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const q = query(collection(db, 'users'), orderBy('payment', 'asc'));
+      const querySnapshot = await getDocs(q);
+      const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Exclude "Owner", "Legend Player" and "Icon Player" from the users list
+      const filteredUsersList = usersList.filter(user => user.player_type !== 'Owner' && user.player_type !== 'Icon Player' && user.player_type !== 'Legend Player');
+      setUsers(filteredUsersList);
+      setFilteredUsers(filteredUsersList); // Initially, show all filtered users
+      setPlayerCount(filteredUsersList.length); // Set count for the filtered list
+    };
+    fetchUsers();
+  }, []);
+
+  // Handle search and filtering logic
+  useEffect(() => {
+    let filtered = users;
+
+    // Filter by player type
+    if (playerTypeFilter !== 'all') {
+      filtered = filtered.filter(user => user.player_type === playerTypeFilter);
+    }
+
+    // Filter by search term (name)
+    if (searchTerm) {
+      filtered = filtered.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    setFilteredUsers(filtered);
+  }, [searchTerm, playerTypeFilter, users]);
+
+  // Handle payment status update
+  const handlePaymentUpdate = async (userId) => {
+    const enteredPassword = prompt('Enter payment password to confirm:');
+    if (enteredPassword === paymentPassword) {
+      const userDocRef = doc(db, 'users', userId);
+      await updateDoc(userDocRef, { payment: 'paid' });
+      // Update the local state
+      const updatedUsers = users.map(user => 
+        user.id === userId ? { ...user, payment: 'paid' } : user
+      );
+      setUsers(updatedUsers);
+      setFilteredUsers(updatedUsers); // Update filtered users
+      alert('Payment status updated to "paid".');
+    } else {
+      alert('Incorrect password. Payment status not updated.');
+    }
+  };
+
+  // Function to create WhatsApp link
+  const createWhatsAppLink = (mobileNumber) => {
+    return `https://wa.me/${mobileNumber}`;
+  };
+
+  return (
+    <div className="view-container">
+      {/* No password protection for the page anymore */}
+      
+      <div className="top-bar">
+        <div className="player-count">
+          Total Players: {playerCount}
+        </div>
+
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <select onChange={(e) => setPlayerTypeFilter(e.target.value)} value={playerTypeFilter}>
+            <option value="all">All</option>
+            <option value="Batsman">Batsman</option>
+            <option value="Bowler">Bowler</option>
+            <option value="Wicket Keeper">Wicket Keeper</option>
+            <option value="Allrounder">Allrounder</option>
+          </select>
+        </div>
+      </div>
+
+      <h2>Players List</h2>
+      <div className="card-list">
+        {filteredUsers.map((user) => (
+          <div className="card" key={user.id}>
+            <div className="card-content-1">
+            <img src={user.photo_url} alt="User" className="user-image" />
+            <h3>{user.name}</h3>
+            </div>
+            <div className="card-content">
+              <p><strong>FMC ID:</strong> FMC{user.fmcid}</p>
+              <p><strong>Shirt Size:</strong> {user.shirt_size}</p>
+              <p><strong>Jersey Number:</strong> {user.jersey_number}</p>
+              <p><strong>Mobile:</strong> {user.mobile_number}</p>
+              <p><strong>Address:</strong> {user.address}</p>
+              <p><strong>Player Type:</strong> {user.player_type}</p>
+              <p>{user.payment || 'Not Paid'}</p>
+
+              {/* Payment Button */}
+              {/* {(!user.payment || user.payment.toLowerCase() === 'not paid') && (
+                <button
+                  className="payment-button"
+                  onClick={() => handlePaymentUpdate(user.id)}
+                >
+                  Mark as Paid
+                </button>
+              )} */}
+
+              {/* WhatsApp Button */}
+              {/* <a
+                href={createWhatsAppLink(user.mobile_number)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whatsapp-button"
+                title={`Message ${user.name} on WhatsApp`}
+              >
+                <FaWhatsapp style={{ color: 'green', fontSize: '24px' }} />
+              </a> */}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer section for copyright */}
+      {/* <footer className="footer" id="footerview">
+        <p>&copy; 2024 mpshetty. All rights reserved.</p>
+      </footer> */}
+    </div>
+  );
+};
+
+export default ViewPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* General Layout */
+.view-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+/* Top bar for player count and search */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.player-count {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+    font-size: 0.9em;
+}
+
+.search-bar select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+}
+
+/* Optional logout button */
+.logout-button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Grid Layout: compact design */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* At least 280px per card */
+    gap: 15px; /* Reduced gap between cards */
+    justify-items: center;
+}
+
+/* Card Styling: Left image and Right details */
+.card {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 320px; /* Maximum width for the card */
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.2s ease-in-out;
+    padding: 10px; /* Reduced padding inside cards */
+}
+
+.card:hover {
+    transform: translateY(-3px); /* Slight hover effect */
+}
+
+/* Image Styling: Left side image */
+.user-image {
+    width: 100px; /* Reduced image width */
+    height: 100px; /* Reduced image height */
+    object-fit: fill; /* Image scales properly */
+    border-right: 2px solid #007bff; /* Border between image and details */
+}
+
+/* Content Styling: Right side details */
+.card-content {
+    padding: 8px 10px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+.card-content-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align:center;
+}
+.card-content-1 h3 {
+    color: #007bff;
+    font-size: 1em; /* Smaller font for the name */
+    line-break: normal;
+}
+.card-content h3 {
+    color: #007bff;
+    margin-bottom: 6px; /* Reduced gap below name */
+    font-size: 1em; /* Smaller font for the name */
+}
+
+.card-content p {
+    margin: 4px 0; /* Reduced spacing between lines */
+    color: #555;
+    font-size: 0.9em; /* Smaller font size for details */
+    line-height: 0.9; /* Slightly reduced line height */
+}
+
+/* Password protection styling */
+.password-protect {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.password-protect h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.password-protect input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-protect button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.password-protect button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+#footerview p {
+    color: black;
+    font-size: 1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .card-list {
+        grid-template-columns: repeat(4, 1fr); /* 3 cards per row for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .card-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for small tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .card-list {
+        grid-template-columns: 1fr; /* 1 card per row for mobile */
+    }
+
+    .user-image {
+        height: 120px; /* Adjusted image height for mobile view */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* General Layout */
+.view-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+/* Top bar for player count and search */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.player-count {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+    font-size: 0.9em;
+}
+
+.search-bar select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+}
+
+/* Optional logout button */
+.logout-button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Grid Layout: compact design */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* At least 280px per card */
+    gap: 15px; /* Reduced gap between cards */
+    justify-items: center;
+}
+
+/* Card Styling: Left image and Right details */
+.card {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 320px; /* Maximum width for the card */
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.2s ease-in-out;
+    padding: 10px; /* Reduced padding inside cards */
+}
+
+.card:hover {
+    transform: translateY(-3px); /* Slight hover effect */
+}
+
+/* Image Styling: Left side image */
+.user-image {
+    width: 100px; /* Reduced image width */
+    height: 100px; /* Reduced image height */
+    object-fit: fill; /* Image scales properly */
+    border-right: 2px solid #007bff; /* Border between image and details */
+}
+
+/* Content Styling: Right side details */
+.card-content {
+    padding: 8px 10px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+.card-content-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align:center;
+}
+.card-content-1 h3 {
+    color: #007bff;
+    font-size: 1em; /* Smaller font for the name */
+    line-break: normal;
+}
+.card-content h3 {
+    color: #007bff;
+    margin-bottom: 6px; /* Reduced gap below name */
+    font-size: 1em; /* Smaller font for the name */
+}
+
+.card-content p {
+    margin: 4px 0; /* Reduced spacing between lines */
+    color: #555;
+    font-size: 0.9em; /* Smaller font size for details */
+    line-height: 0.9; /* Slightly reduced line height */
+}
+
+/* Password protection styling */
+.password-protect {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.password-protect h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.password-protect input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-protect button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.password-protect button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+#footerview p {
+    color: black;
+    font-size: 1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .card-list {
+        grid-template-columns: repeat(4, 1fr); /* 3 cards per row for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .card-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for small tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .card-list {
+        grid-template-columns: 1fr; /* 1 card per row for mobile */
+    }
+
+    .user-image {
+        height: 120px; /* Adjusted image height for mobile view */
+    }
+}

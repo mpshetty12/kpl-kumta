@@ -1,0 +1,98 @@
+/* Overall container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0a0b4c;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Welcome banner */
+/* .login-banner {
+    text-align: center;
+    margin-bottom: 70px;
+    padding: 20px;
+    background: url('./kpl2025.png') no-repeat center/cover;
+    border-radius: 1px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+} */
+
+.login-banner h1 {
+    font-size: 2.5em;
+    color: #FFD700;
+    margin: 0;
+}
+
+.login-banner p {
+    font-size: 1.2em;
+    color: #ddd;
+}
+
+/* Login form container */
+.login-form {
+    background-color: #1d1e5a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+}
+
+/* Login form heading */
+.login-form h2 {
+    margin-bottom: 20px;
+    color: #FFD700;
+}
+
+/* Input fields */
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.login-input:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+/* Error message */
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+/* Login button */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    color: white;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-button:hover {
+    background-color: #ffcc00;
+    transform: scale(1.05);
+}
+
+.login-button:active {
+    background-color: #e6b800;
+}
+
+p{
+    text-align: center;
+}

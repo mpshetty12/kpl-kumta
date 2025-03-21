@@ -1,0 +1,191 @@
+
+/* General Layout */
+.view-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+/* Top bar for player count and search */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.player-count {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+    font-size: 0.9em;
+}
+
+.search-bar select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+}
+
+/* Optional logout button */
+.logout-button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Grid Layout: compact design */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* At least 280px per card */
+    gap: 15px; /* Reduced gap between cards */
+    justify-items: center;
+}
+
+/* Card Styling: Left image and Right details */
+.card {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 320px; /* Maximum width for the card */
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.2s ease-in-out;
+    padding: 10px; /* Reduced padding inside cards */
+}
+
+.card:hover {
+    transform: translateY(-3px); /* Slight hover effect */
+}
+
+/* Image Styling: Left side image */
+.user-image {
+    width: 100px; /* Reduced image width */
+    height: 100px; /* Reduced image height */
+    object-fit: fill; /* Image scales properly */
+    border-right: 2px solid #007bff; /* Border between image and details */
+}
+
+/* Content Styling: Right side details */
+.card-content {
+    padding: 8px 10px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+.card-content-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align:center;
+}
+.card-content-1 h3 {
+    color: #007bff;
+    font-size: 1em; /* Smaller font for the name */
+    line-break: normal;
+}
+.card-content h3 {
+    color: #007bff;
+    margin-bottom: 6px; /* Reduced gap below name */
+    font-size: 1em; /* Smaller font for the name */
+}
+
+.card-content p {
+    margin: 4px 0; /* Reduced spacing between lines */
+    color: #555;
+    font-size: 0.9em; /* Smaller font size for details */
+    line-height: 0.9; /* Slightly reduced line height */
+}
+
+/* Password protection styling */
+.password-protect {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.password-protect h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.password-protect input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-protect button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.password-protect button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+#footerview p {
+    color: black;
+    font-size: 1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .card-list {
+        grid-template-columns: repeat(4, 1fr); /* 3 cards per row for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .card-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for small tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .card-list {
+        grid-template-columns: 1fr; /* 1 card per row for mobile */
+    }
+
+    .user-image {
+        height: 120px; /* Adjusted image height for mobile view */
+    }
+}
