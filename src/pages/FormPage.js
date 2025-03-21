@@ -195,12 +195,25 @@ const FormPage = () => {
             </div>
 
             <div className="input-group">
-              <label htmlFor="idcardPhoto">Upload ID Card Photo/ ಗುರುತಿನ ಚೀಟಿ ಫೋಟೋ</label>
+              <label htmlFor="idcardPhoto">Upload College ID Card Photo/ College ಗುರುತಿನ ಚೀಟಿ ಫೋಟೋ</label>
               <input type="file" id="idcardPhoto" name="idcardPhoto" onChange={handleFileChange} required />
             </div>
 
             <div className="input-group">
-              <label htmlFor="transactionId">Transaction ID / ವಹಿವಾಟು ಐಡಿ</label>
+  <label>Pay Rupees 100 Here / ಇಲ್ಲಿ 100 Rupees ಪಾವತಿ ಮಾಡಿ</label>
+  <div className="qr-section">
+    <img 
+      src="./pay.jpeg" 
+      alt="QR Code for Payment" 
+      className="qr-code" 
+    />
+    <p>Use this QR code to make the UPI payment and enter the Transaction ID below / ಈ QR ಕೋಡ್ ಬಳಸಿ ಪಾವತಿ ಮಾಡಿ ಮತ್ತು ಕೆಳಗಿನ ಟ್ರಾನ್ಸಾಕ್ಷನ್ ಐಡಿ ನಮೂದಿಸಿ</p>
+  </div>
+</div>
+
+
+            <div className="input-group">
+              <label htmlFor="transactionId">Transaction ID / UPI ವಹಿವಾಟು ಐಡಿ</label>
               <input type="text" id="transactionId" name="transactionId" onChange={handleChange} required />
             </div>
 
