@@ -54,7 +54,7 @@ const WelcomePage = () => {
       <p  className="info-title">ಕುಮಟಾ ಹಾಗೂ ಹೊನ್ನಾವರ ಕಾಲೇಜು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಮಾತ್ರ ಅವಕಾಶ, ಆ ಆಟಗಾರರು ಮಾತ್ರ ನೋಂದಣಿಯಾಗಿರುತ್ತಾರೆ (ಕಾಲೇಜು ಗುರುತಿನ ಚೀಟಿ ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ) </p>
       <div className="button-container">
           <>
-            // <button onClick={() => navigate('/form')}>ಆಟಗಾರರ ನೋಂದಣಿ</button>
+            {/* <button onClick={() => navigate('/form')}>ಆಟಗಾರರ ನೋಂದಣಿ</button> */}
             {/* <button onClick={() => navigate('/view')}>PLayers view</button> */}
             <button onClick={() => navigate('/view')}>Players View/ ನೋಂದಣಿಯಾದ ಆಟಗಾರರ ಪಟ್ಟಿ</button>
             {/* <button onClick={() => navigate('/teamview')}>Team View</button>
